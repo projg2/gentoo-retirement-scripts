@@ -1,0 +1,35 @@
+Subject: Requesting status update for developer {{ devname }}
+Bug-Title: Package reassingment: {{ fullname }} ({{ devname }})
+Bug-Comment: First mail sent.
+Bug-Whiteboard: first-email-sent: {{ today }}
+
+Dear {{ firstname }},
+
+We are in the process of requesting status updates for developers that
+haven't committed anything in the gentoo.git tree for more than two
+months but they have bugs assigned to them and their teams
+and unattended.
+
+It appears your last commits was in {{ commitdate }}
+
+Please consider dropping some of your packages to maintainer-
+needed@gentoo.org so other people can step up and maintain them in case
+you have no time anymore. If this is a viable option for you, please
+send an e-mail to the gentoo-dev mailing list to tell us which packages
+are up for grabs.
+
+If you don't have enough time to do this, please send us via mail a list
+of packages to handle and we will do the reassignment and sending
+of mail.
+
+You are free to get these packages back (or co-maintain them if new
+maintainer agrees) if you find more time in the future.
+
+If you don't reply to this in 2 weeks, we will do that ourselves.
+Please, be aware that if we haven't heard from you within 4 months, we
+will start the retirement process. If you are busy and you have no time
+anymore, please use the devaway system to inform us about your absence.
+
+--
+For the Undertakers team,
+{{signature}}

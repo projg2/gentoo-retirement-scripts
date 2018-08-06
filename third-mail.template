@@ -1,0 +1,37 @@
+Subject: Second notice: Possible retirement of {{ devname }}
+Bug-Title: Retire: {{ fullname }} ({{ devname }})
+Bug-Comment: Third mail sent.
+Bug-Whiteboard: third-email-sent: {{ today }}
+
+Dear {{ firstname }},
+
+Possible retirement pending as you haven't shown any activity
+in the past four (or more) months.
+{% if lastcommit %}
+- Last commit activity:
+  {{ lastcommit }}
+{% endif %}
+If you are just away, then please use the devaway system. Any developer
+found to be inactive for a period in excess of 4 months is subject to be
+retired.
+
+While we hate to lose a developer who has made such an impact on Gentoo,
+Developer Relations is tasked with the maintenance of our developer
+pool, to include the retirement of inactive developers and revoking
+their access privileges.
+
+We do understand that life brings us unexpected changes and you simply
+may not have the time, resources, etc to contribute on a more frequent
+basis, every month or two is the preferred minimum. If we do retire you,
+it's pretty easy to come back when you are ready. Just do
+the ebuild/end-quiz again and you're back on. You also always have
+the option of contributing as your schedule allows via proxy
+or bugzilla.
+
+Please reply and advise on your situation. Please be aware that if we
+have not heard from you within 1 month time, we will begin the
+retirement process.
+
+--
+For the Undertakers team,
+{{signature}}
