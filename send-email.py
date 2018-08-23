@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-# Send Third Mail
+# Send undertaker mail (and update bugs)
 # Released under the terms of 2-clause BSD license
 
 import argparse
+import base64
 import collections
 import datetime
 import email
@@ -38,6 +39,10 @@ def grab_ldap(host, dev, infos):
             if not l:
                 continue
             k, v = l.split(': ', 1)
+            # base64-encoded
+            if k.endswith(':'):
+                k = k[:-1]
+                v = base64.b64decode(v, validate=True).decode('utf8')
             if k == 'dn':
                 assert v == 'uid={},ou=devs,dc=gentoo,dc=org'.format(dev)
             else:
