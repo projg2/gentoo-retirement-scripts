@@ -10,7 +10,7 @@ haven't committed anything in the gentoo.git tree for more than two
 months but they have bugs assigned to them and their teams
 and unattended.
 
-It appears your last commits was in {{ commitdate }}
+It appears your last commits was in {{ lastcommit }}
 
 Please consider dropping some of your packages to maintainer-
 needed@gentoo.org so other people can step up and maintain them in case
