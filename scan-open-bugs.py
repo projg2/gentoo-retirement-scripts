@@ -64,8 +64,9 @@ def main(prog_name, *argv):
             mail_time -= 1
 
         if datetime.date.today() >= next_when:
-            print('{}\n  Status: {}; pending since: {}'
-                    .format(b, b.whiteboard, next_when.isoformat()))
+            print('{}\n  Status: {}; pending since: {}\n  {}'
+                    .format(b, b.whiteboard, next_when.isoformat(),
+                            b.weburl))
 
     return 0
 
