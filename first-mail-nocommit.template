@@ -1,5 +1,5 @@
 Subject: Requesting status update for developer {{ devname }}
-Bug-Title: Package reassingment: {{ fullname }} ({{ devname }})
+Bug-Title: Status update: {{ fullname }} ({{ devname }})
 Bug-Comment: First mail sent.
 Bug-Whiteboard: first-email-sent: {{ today }}
 
