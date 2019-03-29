@@ -20,19 +20,22 @@ def main(prog_name, *argv):
     argp = argparse.ArgumentParser(prog=prog_name)
     argp.add_argument('--min-inactivity', type=int, default=120,
             help='Minimum activity to complain about (in days)')
+    argp.add_argument('--include-open', action='store_true',
+            help='Include developers for whom retirement bugs are open')
 
     args = argp.parse_args(argv)
 
-    token_file = os.path.expanduser('~/.bugz_token')
-    try:
-        with open(token_file, 'r') as f:
-            token = f.read().strip()
-    except IOError:
-        print('Put bugzilla API key into ~/.bugz_token')
-        return 1
+    if not args.include_open:
+        token_file = os.path.expanduser('~/.bugz_token')
+        try:
+            with open(token_file, 'r') as f:
+                token = f.read().strip()
+        except IOError:
+            print('Put bugzilla API key into ~/.bugz_token')
+            return 1
 
-    bz = bugzilla.Bugzilla('https://bugs.gentoo.org',
-                           api_key=token)
+        bz = bugzilla.Bugzilla('https://bugs.gentoo.org',
+                               api_key=token)
 
     with urllib.request.urlopen(
             'https://qa-reports.gentoo.org/output/active-devs.json') as ju:
@@ -49,17 +52,18 @@ def main(prog_name, *argv):
         if newest_commit < ref_date:
             candidates[dev] = ranges[0]
 
-    q = bz.build_query(product='Gentoo Developers/Staff',
-                       component='Retirement',
-                       status=('UNCONFIRMED', 'CONFIRMED', 'IN_PROGRESS'))
-    bugs = bz.query(q)
+    if not args.include_open:
+        q = bz.build_query(product='Gentoo Developers/Staff',
+                           component='Retirement',
+                           status=('UNCONFIRMED', 'CONFIRMED', 'IN_PROGRESS'))
+        bugs = bz.query(q)
 
-    for b in bugs:
-        if not b.alias:
-            print('{}\n  Bug not aliased to nickname'.format(b))
-            continue
-        assert len(b.alias) == 1
-        candidates.pop(b.alias[0], None)
+        for b in bugs:
+            if not b.alias:
+                print('{}\n  Bug not aliased to nickname'.format(b))
+                continue
+            assert len(b.alias) == 1
+            candidates.pop(b.alias[0], None)
 
     dev_len = max(len(x) for x in candidates)
     for dev, rang in sorted(candidates.items(), key=lambda kv: kv[1][2]):
