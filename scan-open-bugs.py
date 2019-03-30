@@ -56,12 +56,18 @@ def main(prog_name, *argv):
         when = datetime.date.fromisoformat(m.group(2))
 
         mail_time = MAIL_TIMES[which]
-        next_when = when
+        yr = when.year
+        mo = when.month
+        add_days = 0
         while mail_time > 0:
-            _, days_in_month = calendar.monthrange(
-                    next_when.year, next_when.month)
-            next_when += datetime.timedelta(days=days_in_month)
+            _, days_in_month = calendar.monthrange(yr, mo)
+            add_days += days_in_month
+            mo += 1
+            if mo > 12:
+                yr += 1
+                mo = 1
             mail_time -= 1
+        next_when = when + datetime.timedelta(days=add_days)
 
         if datetime.date.today() >= next_when:
             print('{}\n  Status: {}; pending since: {}\n  {}'
