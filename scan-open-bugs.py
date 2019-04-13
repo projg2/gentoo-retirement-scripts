@@ -14,6 +14,7 @@ import bugzilla
 
 WB_INFRA_RE = re.compile(r'^infra-(retire|done): ')
 WB_MAIL_RE = re.compile(r'^(first|second|third)-e?mail-sent: (\d{4}-\d{2}-\d{2})')
+WB_RETIRE_RE = re.compile(r'^retirement-requested: (\d{4}-\d{2}-\d{2})')
 
 # in months
 MAIL_TIMES = {
@@ -21,6 +22,40 @@ MAIL_TIMES = {
     'second': 1,
     'third': 1,
 }
+
+
+def get_next_when(b):
+    if WB_INFRA_RE.match(b.whiteboard):
+        return None
+
+    m = WB_MAIL_RE.match(b.whiteboard)
+    if m is not None:
+        which = m.group(1)
+        when = datetime.date.fromisoformat(m.group(2))
+
+        mail_time = MAIL_TIMES[which]
+        yr = when.year
+        mo = when.month
+        add_days = 0
+        while mail_time > 0:
+            _, days_in_month = calendar.monthrange(yr, mo)
+            add_days += days_in_month
+            mo += 1
+            if mo > 12:
+                yr += 1
+                mo = 1
+            mail_time -= 1
+        next_when = when + datetime.timedelta(days=add_days)
+        return next_when
+
+    m = WB_RETIRE_RE.match(b.whiteboard)
+    if m is not None:
+        when = datetime.date.fromisoformat(m.group(1))
+        next_when = when + datetime.timedelta(days=14)
+        return next_when
+
+    print('{}\n  Unknown whiteboard: {}'.format(b, b.whiteboard))
+    return None
 
 
 def main(prog_name, *argv):
@@ -46,30 +81,9 @@ def main(prog_name, *argv):
     bugs = bz.query(q)
 
     for b in bugs:
-        if WB_INFRA_RE.match(b.whiteboard):
+        next_when = get_next_when(b)
+        if next_when is None:
             continue
-
-        m = WB_MAIL_RE.match(b.whiteboard)
-        if m is None:
-            print('{}\n  Unknown whiteboard: {}'.format(b, b.whiteboard))
-            continue
-
-        which = m.group(1)
-        when = datetime.date.fromisoformat(m.group(2))
-
-        mail_time = MAIL_TIMES[which]
-        yr = when.year
-        mo = when.month
-        add_days = 0
-        while mail_time > 0:
-            _, days_in_month = calendar.monthrange(yr, mo)
-            add_days += days_in_month
-            mo += 1
-            if mo > 12:
-                yr += 1
-                mo = 1
-            mail_time -= 1
-        next_when = when + datetime.timedelta(days=add_days)
 
         if datetime.date.today() >= next_when:
             print('{}\n  Status: {}; pending since: {}\n  {}'
