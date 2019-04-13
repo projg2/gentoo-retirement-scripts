@@ -25,6 +25,8 @@ MAIL_TIMES = {
 
 def main(prog_name, *argv):
     argp = argparse.ArgumentParser(prog=prog_name)
+    argp.add_argument('--all', action='store_true',
+            help='List all open bugs, even if they are not pending yet')
     args = argp.parse_args(argv)
 
     token_file = os.path.expanduser('~/.bugz_token')
@@ -71,6 +73,10 @@ def main(prog_name, *argv):
 
         if datetime.date.today() >= next_when:
             print('{}\n  Status: {}; pending since: {}\n  {}'
+                    .format(b, b.whiteboard, next_when.isoformat(),
+                            b.weburl))
+        elif args.all:
+            print('{}\n  Status: {}; deadline: {}\n  {}'
                     .format(b, b.whiteboard, next_when.isoformat(),
                             b.weburl))
 
