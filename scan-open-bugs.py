@@ -24,7 +24,7 @@ MAIL_TIMES = {
 }
 
 
-def get_next_when(b):
+def get_next_when(b, reassignment):
     if WB_INFRA_RE.match(b.whiteboard):
         return None
 
@@ -32,6 +32,9 @@ def get_next_when(b):
     if m is not None:
         which = m.group(1)
         when = datetime.date.fromisoformat(m.group(2))
+
+        if which == 'first' and reassignment:
+            return when + datetime.timedelta(days=14)
 
         mail_time = MAIL_TIMES[which]
         yr = when.year
@@ -62,6 +65,8 @@ def main(prog_name, *argv):
     argp = argparse.ArgumentParser(prog=prog_name)
     argp.add_argument('--all', action='store_true',
             help='List all open bugs, even if they are not pending yet')
+    argp.add_argument('--reassignment', action='store_true',
+            help='Include package reassignment pending after first mail')
     args = argp.parse_args(argv)
 
     token_file = os.path.expanduser('~/.bugz_token')
@@ -81,7 +86,7 @@ def main(prog_name, *argv):
     bugs = bz.query(q)
 
     for b in bugs:
-        next_when = get_next_when(b)
+        next_when = get_next_when(b, args.reassignment)
         if next_when is None:
             continue
 
