@@ -152,6 +152,7 @@ def main(prog_name, *argv):
     if bug.status == 'RESOLVED':
         upd_args['status'] = 'CONFIRMED'
     upd_args['comment'] = mail['Bug-Comment']
+    upd_args['reset_assigned_to'] = True
     upd_args['summary'] = mail['Bug-Title']
     upd_args['whiteboard'] = mail['Bug-Whiteboard']
     del mail['Bug-Comment']
