@@ -153,11 +153,13 @@ def main(prog_name, *argv):
         upd_args['status'] = 'CONFIRMED'
     upd_args['comment'] = mail['Bug-Comment']
     upd_args['reset_assigned_to'] = True
-    upd_args['summary'] = mail['Bug-Title']
-    upd_args['whiteboard'] = mail['Bug-Whiteboard']
+    if 'Bug-Title' in mail:
+        upd_args['summary'] = mail['Bug-Title']
+    if 'Bug-Whiteboard' in mail:
+        upd_args['whiteboard'] = mail['Bug-Whiteboard']
     del mail['Bug-Comment']
     del mail['Bug-Title']
-    del mail['Whiteboard']
+    del mail['Bug-Whiteboard']
     upd = bz.build_update(**upd_args)
 
     addr_to = '{}@gentoo.org'.format(args.dev)

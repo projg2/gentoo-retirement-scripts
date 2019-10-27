@@ -1,0 +1,19 @@
+Subject: Commit access disabled for inactivity: {{ devname }}
+Bug-Comment: gentoo.git access disabled.
+
+Dear {{ firstname }},
+
+We are disabling gentoo.git commit access for your account as you
+haven't shown commit activity in the past 10 weeks or more.
+
+{% if lastcommit %}
+- Last commit activity:
+  {{ lastcommit }}
+
+{% endif %}
+Once you are available again and wish to commit, please ping us and we
+will restore it ASAP.
+
+-- 
+For the Undertakers team,
+{{signature}}
