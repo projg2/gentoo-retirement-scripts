@@ -6,11 +6,11 @@ Bug-Whiteboard: first-email-sent: {{ today }}
 Dear {{ firstname }},
 
 We are in the process of requesting status updates for developers that
-haven't committed anything in their teams repositories for more than two
-months and those we miss signs of their activities in recent times.
+haven't shown any signs of developer activity for more than two months.
 
-Please, be aware that if we haven't heard from you within 4 months, we
-will start the retirement process. If you are busy and you have no time
+Please, be aware that if we don't hear from you within 6 months, we will
+start the retirement process. If we don't hear within 12 months, we will
+proceed with the retirement. If you are busy and you have no time
 anymore, please use the devaway system to inform us about your absence.
 
 -- 

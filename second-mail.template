@@ -6,17 +6,19 @@ Bug-Whiteboard: second-email-sent: {{ today }}
 Dear {{ firstname }},
 
 Possible retirement pending as you haven't shown any activity
-in the past four (or more) months.
+in the past eight (or more) months.
+
 {% if lastcommit %}
 - Last commit activity:
   {{ lastcommit }}
+
 {% endif %}
 If you are just away, then please use the devaway system. Please be
 advised that devaway may also be considered inactive if it extends past
 60 days.
 
 We do understand that life brings us unexpected changes and you simply
-may not have the time, resources, etc to contribute on a more frequent
+may not have the time, resources, etc. to contribute on a more frequent
 basis, every month or two is the preferred minimum. If we do retire you,
 it's pretty easy to come back when you are ready. Just do
 the ebuild/end-quiz again and you're back on. You also always have
@@ -24,9 +26,9 @@ the option of contributing as your schedule allows via proxy
 or bugzilla.
 
 Please reply and advise on your situation. Any developer found to
-be inactive for a period in excess of 4 months is subject to be retired.
-Please be aware that if we have not heard from you within 2 months time,
-we will begin the retirement process.
+be inactive for a period in excess of 12 months is subject to be
+retired. Please be aware that if we have not heard from you within
+6 months' time, we will begin the retirement process.
 
 -- 
 For the Undertakers team,

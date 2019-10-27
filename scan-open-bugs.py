@@ -13,18 +13,19 @@ import bugzilla
 
 
 WB_INFRA_RE = re.compile(r'^infra-(retire|done): ')
-WB_MAIL_RE = re.compile(r'^(first|second|third)-e?mail-sent: (\d{4}-\d{2}-\d{2})')
+WB_MAIL_RE = re.compile(r'^(first|second|third|fourth)-e?mail-sent: (\d{4}-\d{2}-\d{2})')
 WB_RETIRE_RE = re.compile(r'^retirement-requested: (\d{4}-\d{2}-\d{2})')
 
 # in months
 MAIL_TIMES = {
-    'first': 4,
-    'second': 1,
-    'third': 1,
+    'first': 6,
+    'second': 3,
+    'third': 2,
+    'fourth': 1,
 }
 
 
-def get_next_when(b, reassignment):
+def get_next_when(b, args):
     if WB_INFRA_RE.match(b.whiteboard):
         return None
 
@@ -33,8 +34,10 @@ def get_next_when(b, reassignment):
         which = m.group(1)
         when = datetime.date.fromisoformat(m.group(2))
 
-        if which == 'first' and reassignment:
+        if which == 'first' and args.commit_access:
             return when + datetime.timedelta(days=14)
+        if which == 'first' and args.reassignment:
+            return when + datetime.timedelta(days=28)
 
         mail_time = MAIL_TIMES[which]
         yr = when.year
@@ -65,7 +68,10 @@ def main(prog_name, *argv):
     argp = argparse.ArgumentParser(prog=prog_name)
     argp.add_argument('--all', action='store_true',
             help='List all open bugs, even if they are not pending yet')
-    argp.add_argument('--reassignment', action='store_true',
+    types = argp.add_mutually_exclusive_group()
+    types.add_argument('--commit-access', action='store_true',
+            help='Include commit access suspension pending after first mail')
+    types.add_argument('--reassignment', action='store_true',
             help='Include package reassignment pending after first mail')
     args = argp.parse_args(argv)
 
@@ -86,7 +92,7 @@ def main(prog_name, *argv):
     bugs = bz.query(q)
 
     for b in bugs:
-        next_when = get_next_when(b, args.reassignment)
+        next_when = get_next_when(b, args)
         if next_when is None:
             continue
 

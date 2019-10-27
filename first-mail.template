@@ -7,27 +7,30 @@ Dear {{ firstname }},
 
 We are in the process of requesting status updates for developers that
 haven't committed anything in the gentoo.git tree for more than two
-months but they have bugs assigned to them and their teams
-and unattended.
+months.
 
-It appears your last commits was in {{ lastcommit }}
+It appears your last commit was on {{ lastcommit }}
 
 Please consider dropping some of your packages to maintainer-
 needed@gentoo.org so other people can step up and maintain them in case
 you have no time anymore. If this is a viable option for you, please
-send an e-mail to the gentoo-dev mailing list to tell us which packages
-are up for grabs.
+send an e-mail to the gentoo-dev mailing list telling others which
+packages are up for grabs.
 
-If you don't have enough time to do this, please send us via mail a list
-of packages to handle and we will do the reassignment and sending
-of mail.
+If you don't have enough time to do this, please send us via reply
+a list of packages to handle and we will take care of reassigning
+and sending mail.
 
-You are free to get these packages back (or co-maintain them if new
+You are free to get these packages back (or co-maintain them if the new
 maintainer agrees) if you find more time in the future.
 
-If you don't reply to this in 2 weeks, we will do that ourselves.
-Please, be aware that if we haven't heard from you within 4 months, we
-will start the retirement process. If you are busy and you have no time
+If you don't reply to this mail in 2 weeks, we will temporarily suspend
+your commit access in order to protect the account. If you don't reply
+in 4 weeks, we will reassign all your packages ourselves.
+
+Please, be aware that if we don't hear from you within 6 months, we will
+start the retirement process. If we don't hear within 12 months, we will
+proceed with the retirement. If you are busy and you have no time
 anymore, please use the devaway system to inform us about your absence.
 
 -- 

@@ -1,12 +1,12 @@
-Subject: Second notice: Possible retirement of {{ devname }}
+Subject: Final notice: Possible retirement of {{ devname }}
 Bug-Title: Retire: {{ fullname }} ({{ devname }})
-Bug-Comment: Third mail sent.
-Bug-Whiteboard: third-email-sent: {{ today }}
+Bug-Comment: Fourth mail sent.
+Bug-Whiteboard: fourth-email-sent: {{ today }}
 
 Dear {{ firstname }},
 
 Possible retirement pending as you haven't shown any activity
-in the past eleven (or more) months.
+in the past fourteen (or more) months.
 
 {% if lastcommit %}
 - Last commit activity:
@@ -31,7 +31,7 @@ the option of contributing as your schedule allows via proxy
 or bugzilla.
 
 Please reply and advise on your situation. Please be aware that if we
-have not heard from you within 3 months' time, we will begin
+have not heard from you within 1 month's time, we will begin
 the retirement process.
 
 -- 
