@@ -29,7 +29,7 @@ def grab_ldap(host, dev, infos):
 
     ret = collections.defaultdict(list)
     with subprocess.Popen(
-            ['ssh', host, 'ldapsearch', '-Z', '-LLL',
+            ['ssh', host, 'ldapsearch', '-x', '-Z', '-LLL',
                 'uid={}'.format(dev), *infos],
             stdout=subprocess.PIPE) as ssh:
         sout, serr = ssh.communicate()
