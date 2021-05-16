@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Send undertaker mail (and update bugs)
+# Send retirement mail (and update bugs)
 # Released under the terms of 2-clause BSD license
 
 import argparse
