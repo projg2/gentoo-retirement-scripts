@@ -48,14 +48,14 @@ def main() -> int:
         other_proxied_maint = False
         for pm in maints:
             if (pm.findtext('email') != args.email
-                    and not pm.findtext('email').endswith('@gentoo.org')):
+                    and pm.get('proxied') == 'yes'):
                 other_proxied_maint = True
                 break
 
-        # Remove proxy-maint project if no proxied maintainers are left
+        # Remove proxies if no proxied maintainers are left
         if not other_proxied_maint:
             for p in maints:
-                if p.findtext('email') == 'proxy-maint@gentoo.org':
+                if p.get('proxied') == 'proxy':
                     r.remove(p)
             maints = r.findall('maintainer')
 
