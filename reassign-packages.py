@@ -66,6 +66,8 @@ def main() -> int:
             r.replace(m, c)
             grabs.add('/'.join(subpath.split('/')[:2]))
         else:
+            if m.getprevious() is not None:
+                m.getprevious().tail = m.tail
             r.remove(m)
 
         # Write all the changes to the metadata.xml
