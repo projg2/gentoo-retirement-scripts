@@ -6,8 +6,7 @@ Bug-Whiteboard: first-email-sent: {{ today }}
 Dear {{ firstname }},
 
 We are in the process of requesting status updates for developers that
-haven't committed anything in the gentoo.git tree for more than two
-months.
+have had no or very low activity within the last four months.
 
 {% if lastcommit %}
 It appears your last commit was on {{ lastcommit }}
