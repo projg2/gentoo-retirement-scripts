@@ -5,8 +5,8 @@ Bug-Whiteboard: fourth-email-sent: {{ today }}
 
 Dear {{ firstname }},
 
-Possible retirement pending as you haven't shown any activity
-in the past fourteen (or more) months.
+Possible retirement pending as you haven't shown no or very little
+activity in the past fourteen (or more) months.
 
 {% if lastcommit %}
 - Last commit activity:
